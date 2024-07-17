@@ -1,0 +1,55 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const connectDB = require('./config/db');
+const SendOTPRoutes = require('./routes/SendOTP');
+const VerifyOTPRoutes = require('./routes/VerifyOTP');
+const UserRegistrationRoutes = require('./routes/UserRegistration');
+const CreateRequestRoutes = require('./routes/CreateRequest');
+const RequestHistoryRoutes = require('./routes/RequestHistory');
+const editRequestRouter = require('./routes/EditRequest');
+const deleteRequestRouter = require('./routes/DeleteRequest');
+const updateStatus = require('./AdminRoutes/RequestStatus');
+const AdminLoginRoute = require('./AdminRoutes/login');
+const RequestCountRoute = require('./AdminRoutes/totalNumberOfRequest');
+const TotalRequest = require('./AdminRoutes/getTotalRequest');
+const UserStats = require('./AdminRoutes/UserStats');
+const requestId = require('./AdminRoutes/getRequestByID');
+const UserDetails = require('./AdminRoutes/UserDetails');
+
+const app = express();
+
+// Connect to MongoDB
+connectDB();
+
+// Middleware
+// app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:8081', // Replace with your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true // Allow credentials like cookies
+}));
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+
+// (uploads folder)
+app.use('/uploads', express.static('uploads'));
+
+// Routes
+app.use('/api', SendOTPRoutes);
+app.use('/api', VerifyOTPRoutes);
+app.use('/api', UserRegistrationRoutes);
+app.use('/api', CreateRequestRoutes);
+app.use('/api', RequestHistoryRoutes);
+app.use('/api', editRequestRouter);
+app.use('/api', deleteRequestRouter);
+app.use('/admin', updateStatus);
+app.use('/admin', AdminLoginRoute);
+app.use('/admin', RequestCountRoute);
+app.use('/admin', TotalRequest);
+app.use('/admin', UserStats);
+app.use('/admin', requestId);
+app.use('/admin', UserDetails);
+
+module.exports = app;
