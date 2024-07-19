@@ -4,15 +4,15 @@ const { v4: uuidv4 } = require('uuid');
 const documentSchema = new mongoose.Schema({
     filename: {
         type: String,
-        required: true
+        // required: true
     },
     filepath: {
         type: String,
-        required: true
+        // required: true
     },
     filetype: {
         type: String,
-        required: true
+        // required: true
     }
 });
 
@@ -60,7 +60,7 @@ const requestSchema = new mongoose.Schema({
     },
     documents: {
         type: [documentSchema],
-        required: true
+        // required: true
     },
     receipt: [receiptSchema],
     status: {
