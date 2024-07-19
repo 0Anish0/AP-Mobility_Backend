@@ -65,7 +65,7 @@ const requestSchema = new mongoose.Schema({
     receipt: [receiptSchema],
     status: {
         type: String,
-        enum: ['Initiated', 'InProgress', 'Completed'],
+        enum: ['Initiated', 'InProgress', 'Completed', 'Rejected'],
         default: 'Initiated'
     },
     createdBy: {

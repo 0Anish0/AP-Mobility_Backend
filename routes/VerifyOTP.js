@@ -29,7 +29,7 @@ router.post('/verify-otp', async (req, res) => {
             return res.status(400).json({ message: 'OTP has expired' });
         }
 
-        const token = jwt.sign({ _id: user._id, email: user.email }, jwtSecret, { expiresIn: '1h' });
+        const token = jwt.sign({ _id: user._id, email: user.email }, jwtSecret, { expiresIn: '7d' });
 
         res.json({ token });
     } catch (err) {
