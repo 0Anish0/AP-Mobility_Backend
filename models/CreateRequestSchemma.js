@@ -125,7 +125,7 @@ const requestSchema = new mongoose.Schema({
     requestId: {
         type: String,
         default: function () {
-            return REQ-${uuidv4().slice(0, 8).toUpperCase()};
+            return `REQ-${uuidv4().slice(0, 8).toUpperCase()}`;
         },
         unique: true
     },
