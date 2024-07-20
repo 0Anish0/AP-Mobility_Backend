@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const profilePictureSchema = new mongoose.Schema({
     filename: {
         type: String,
-        // required: true
+        required: true
     },
     filepath: {
         type: String,
-        // required: true
+        required: true
     },
     filetype: {
         type: String,
-        // required: true
+        required: true
     }
 });
 
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     },
     profilePicture: {
         type: profilePictureSchema,
-        // required: true
+        required: true
     },
     mobile: {
         type: Number,

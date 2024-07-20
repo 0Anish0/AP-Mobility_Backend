@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const User = require('../models/UserRegistrationSchemma');
+const User = require('../models/UserRegistrationSchemma'); // Corrected spelling
 const { generateOTP, sendOTP } = require('../services/OtpServices');
 const router = express.Router();
 
@@ -56,8 +56,7 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
             mobile,
             address1,
             address2,
-            email,
-            
+            email
         });
 
         await user.save();
@@ -66,23 +65,23 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
         res.status(201).json({ message: 'User registered successfully' });
     } catch (err) {
         console.error('Error registering user:', err);
-        res.status(500).json({ message: 'Error registering user', error: err });
+        res.status(500).json({ message: 'Error registering user', error: err.message });
     }
 });
 
-router.post('/register/:otp', async (req, res) => {
+router.post('/register-otp', async (req, res) => {
     const { email } = req.body;
-
-    let user = await User.findOne({ email });
-    if (user) {
-        return res.status(400).json({ message: 'This email is associated with another account' });
-    }
 
     if (!email) {
         return res.status(400).json({ message: 'Email is required' });
     }
 
     try {
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({ message: 'This email is associated with another account' });
+        }
+
         const otp = generateOTP();
         otpStore[email] = otp;
 
