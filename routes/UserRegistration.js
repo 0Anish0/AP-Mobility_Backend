@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const User = require('../models/UserRegistrationSchemma'); // Corrected spelling
+const User = require('../models/UserRegistrationSchemma');
 const { generateOTP, sendOTP } = require('../services/OtpServices');
 const router = express.Router();
 
@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
     }
 });
 
-// File filter to allow only specific file types
 const fileFilter = (req, file, cb) => {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     if (allowedTypes.includes(file.mimetype)) {
