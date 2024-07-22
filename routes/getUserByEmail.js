@@ -30,7 +30,7 @@ router.get('/user/:email', authenticateUser, async (req, res) => {
 });
 
 // Route for updating user details
-router.put('/user/update/:email', authenticateUser, async (req, res) => {
+router.put('/user-update/:email', authenticateUser, async (req, res) => {
     const { email } = req.params;
     const { name, profilePicture, mobile, address1, address2 } = req.body;
 
