@@ -3,7 +3,7 @@ const Request = require('../models/CreateRequestSchemma');
 const router = express.Router();
 const authenticateUser = require('../middleware/UserAuthentication');
 
-router.get('/all-requests', authenticateUser, async (req, res) => {
+router.get('/all-requests/:email', authenticateUser, async (req, res) => {
     try {
         const requests = await Request.find().exec();
         res.status(200).json(requests);
