@@ -5,7 +5,7 @@ const authenticateUser = require('../middleware/UserAuthentication');
 
 router.get('/all-requests/:email', authenticateUser, async (req, res) => {
     try {
-        const requests = await Request.find().exec();
+        const requests = await Request.find({email}).exec();
         res.status(200).json(requests);
     } catch (err) {
         console.error('Error fetching requests:', err);
