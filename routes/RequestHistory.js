@@ -4,6 +4,7 @@ const router = express.Router();
 const authenticateUser = require('../middleware/UserAuthentication');
 
 router.get('/all-requests/:email', authenticateUser, async (req, res) => {
+    const { email } = req.params;
     try {
         const requests = await Request.find({email}).exec();
         res.status(200).json(requests);
