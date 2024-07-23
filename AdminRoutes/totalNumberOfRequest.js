@@ -10,12 +10,14 @@ router.get('/request-counts', AdminAuthentication, async (req, res) => {
         const pendingCount = await Request.countDocuments({ status: 'Initiated' }).exec();
         const inProgressCount = await Request.countDocuments({ status: 'InProgress' }).exec();
         const completedCount = await Request.countDocuments({ status: 'Completed' }).exec();
+        const rejectedCount = await Request.countDocuments({ status: 'Rejected' }).exec();
 
         res.status(200).json({
             totalRequestCount,
             pendingCount,
             inProgressCount,
-            completedCount
+            completedCount,
+            rejectedCount
         });
     } catch (err) {
         console.error('Error fetching request counts:', err);

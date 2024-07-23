@@ -25,7 +25,7 @@ router.put('/request-status/:requestId', AdminAuthentication, upload.single('rec
         const receiptFile = req.file;
 
         // Validate status
-        if (!['Initiated', 'InProgress', 'Completed'].includes(status)) {
+        if (!['Initiated', 'InProgress', 'Completed', 'Rejected'].includes(status)) {
             return res.status(400).json({ message: 'Invalid status value. Allowed values are: Initiated, Pending, Completed.' });
         }
 
