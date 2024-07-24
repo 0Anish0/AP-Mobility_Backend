@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const connectDB = require('./config/db');
 const SendOTPRoutes = require('./routes/SendOTP');
 const VerifyOTPRoutes = require('./routes/VerifyOTP');
@@ -24,18 +25,18 @@ const app = express();
 connectDB();
 
 // Middleware
-// app.use(cors());
 app.use(cors({
     origin: 'http://localhost:8081', // Replace with your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // Allow credentials like cookies
 }));
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-// (uploads folder)
-app.use('/uploads', express.static('uploads'));
+// Serve static files from the 'uploads' folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api', SendOTPRoutes);
@@ -53,5 +54,21 @@ app.use('/admin', TotalRequest);
 app.use('/admin', UserStats);
 app.use('/admin', requestId);
 app.use('/admin', UserDetails);
+
+// Sample route for testing
+app.get('/test', (req, res) => {
+    res.json({ message: 'Server is working!' });
+});
+
+// Error handling
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 module.exports = app;
