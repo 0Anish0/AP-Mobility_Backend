@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/user-details/:email', AdminAuthentication, async (req, res) => {
     try {
         const { email } = req.params;
-        const user = await UserRegistration.find({ email });
+        const user = await UserRegistration.findOne({ email });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
