@@ -25,21 +25,14 @@ const app = express();
 connectDB();
 
 // Middleware
-// app.use(cors());
-const allowedOrigins = ['http://localhost:8081', 'https://admin-panel-blush-seven.vercel.app'];
-
 const corsOptions = {
-    origin: (origin, callback) => {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 };
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 
 app.use(bodyParser.json());
