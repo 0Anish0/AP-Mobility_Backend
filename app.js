@@ -26,12 +26,21 @@ connectDB();
 
 // Middleware
 // app.use(cors());
-app.use(cors({
-    origin: ['http://localhost:8081', 'https://admin-panel-blush-seven.vercel.app/'],
+const allowedOrigins = ['http://localhost:8081', 'https://admin-panel-blush-seven.vercel.app'];
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true 
-}));
+    credentials: true
+};
+
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
