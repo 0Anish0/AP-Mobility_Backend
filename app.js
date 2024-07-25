@@ -25,11 +25,12 @@ const app = express();
 connectDB();
 
 // Middleware
+// app.use(cors());
 app.use(cors({
-    origin: 'http://localhost:8081', // Replace with your frontend URL
+    origin: ['http://localhost:8081', 'https://admin-panel-blush-seven.vercel.app/'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true // Allow credentials like cookies
+    credentials: true 
 }));
 
 app.use(bodyParser.json());
