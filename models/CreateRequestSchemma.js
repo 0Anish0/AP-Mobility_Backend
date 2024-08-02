@@ -48,7 +48,7 @@ const requestSchema = new mongoose.Schema({
     },
     language: {
         type: String,
-        required: true
+        // required: true
     },
     date: {
         type: Date,
@@ -56,7 +56,7 @@ const requestSchema = new mongoose.Schema({
     },
     time: {
         type: String,
-        required: true
+        // required: true
     },
     documents: {
         type: [documentSchema],
